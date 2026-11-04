@@ -1,0 +1,54 @@
+CS454 Assignment 2 -- results (re-run of all 18 GP runs)
+============================================================
+Ranks use max aggregation at the method level.
+acc@1 / wef = pessimistic (conservative) ties unless noted.
+
+1. All GP runs (pop 300, 60 generations, fitness = acc@1 then wef)
+------------------------------------------------------------
+ seed  trained on | valid acc@1 valid wef | all acc@1 all wef | size | same as original run?
+  100  71 (split) |          14     6.104 |        48  10.059 |   75 | yes
+  101  71 (split) |          18     6.521 |        51   5.387 |   32 | yes
+  102  71 (split) |          15     7.062 |        51   5.462 |   53 | yes
+  103  71 (split) |          18     6.167 |        53   5.126 |   40 | yes
+  104  71 (split) |          15     6.375 |        51   5.202 |   33 | yes
+  105  71 (split) |          16     7.521 |        50   5.731 |   45 | yes
+  200  71 (split) |          14     6.375 |        47   5.235 |   41 | yes
+  201  71 (split) |          14     7.250 |        48   5.655 |   24 | yes
+  202  71 (split) |          18     6.896 |        51   5.622 |   24 | yes
+  203  71 (split) |          19     6.375 |        52   5.269 |   27 | yes
+  204  71 (split) |          17     7.479 |        49   5.866 |   24 | yes
+  205  71 (split) |          18     6.479 |        52   5.244 |   41 | yes
+  300     all 119 |      (=all)           |        52   5.605 |   26 | yes
+  301     all 119 |      (=all)           |        52   5.244 |   37 | yes
+  302     all 119 |      (=all)           |        51   5.588 |   54 | yes
+  400     all 119 |      (=all)           |        52   5.008 |   38 | yes
+  401     all 119 |      (=all)           |        53   4.832 |   54 | yes
+  402     all 119 |      (=all)           |        53   5.294 |   46 | yes
+
+Reproduced identically: 18/18 runs
+
+2. Selected formula (best final run: highest acc@1, then lowest wef)
+------------------------------------------------------------
+seed 401: ((sqrt((sqrt(((nf - ep) + sqrt(np))) * (ef * ef))) / (sqrt((sqrt((nf - ef)) + ((nf - ep) * (ef - ep)))) * ((1 * (ef + nf)) / nf))) / sqrt((sqrt((nf - ef)) + ((((1 * 1) + nf) - ep) * (ef - (1 + nf))))))
+identical to best.py: True
+
+3. best.py vs. human-designed formulas on the 119 bugs
+------------------------------------------------------------
+formula       | acc@1 acc@1 acc@1 |    wef    wef    wef
+              |  pess   avg   opt |   pess    avg    opt
+GP (best.py)  |    53    53    76 |   4.83   4.17   3.51
+Ochiai        |    46    46    70 |   5.09   4.48   3.87
+Tarantula     |    42    42    71 |   5.53   4.85   4.18
+Jaccard       |    45    45    70 |   5.22   4.60   3.97
+Op2           |    43    43    65 |  15.27  14.67  14.07
+Wong1         |     2     2   103 |  88.76  50.15  11.53
+AMPLE         |    42    42    64 |  11.57  10.97  10.36
+
+4. Per project (pessimistic ties): average wef and acc@1
+------------------------------------------------------------
+project  #bugs | GP acc@1  GP wef | Ochiai acc@1 Ochiai wef
+Chart       19 |        7    4.47 |            7       4.79
+Lang        34 |       19    4.15 |           18       5.00
+Math        48 |       19    5.12 |           15       5.10
+Time        18 |        8    5.72 |            6       5.56
+All        119 |       53    4.83 |           46       5.09

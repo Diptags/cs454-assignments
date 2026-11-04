@@ -1,0 +1,74 @@
+# CS454 Assignment 2: Genetic Programming for SBFL
+
+Automated debugging and, in particular, fault localisation is a technique that aims to tell developer where the source of the observed failure is. In other words, if you provide test results as well as other inputs, the technique will tell you where the buggy line/method/class/file is. The aim of the second coursework is to implement a learning mechanism for automated debugging.
+
+## Aim
+
+The aim of this coursework is essentially to replicate a paper that evolved fault localisation techniques using Genetic Programming:
+
+- Evolving Human Competitive Spectra-Based Fault Localisation Techniques, Search Based Software Engineering. G. Fraser and J. Teixeira de Souza, eds. Springer Berlin Heidelberg. 244–258. [PDF](https://coinse.github.io/publications/pdfs/Yoo2012kx.pdf)
+
+Please read the paper to understand the task, as well as SBFL in general. You can also refer to the Spectrum Based Fault Localization part in [this course material from CS453](https://coinse.github.io/assets/files/teaching/cs453/cs453slide09.pdf).
+
+## Data Preparation
+
+You will be given raw coverage data collected from [Defects4J](https://github.com/rjust/defects4j). You need to process the data to program spectrum, following the paper and the SBFL course material. Please refer to the included Jupyter Notebook file for the tutorial on how to use the given data.
+
+## Genetic Programming
+
+Implement your own GP engine, and use it to find a suitable SBFL formula that ranks the faulty program element as high as possible. You are free to choose the non-terminal operators yourself. Typically SBFL formulas use the basic arithmetic operators: addition, subtraction, multiplication, and division, but feel free to expand the set if you think it helps. The aim is to lower the rank of the faulty program element as much as possible, for as many bugs as possible.
+
+Note that, for division, you *have to* use the following _safe_ definition:
+
+```
+def div(x, y): # divide x with y
+	if y == 0:
+		return 1
+	else:
+		return x / y
+```
+
+## Evaluation
+
+We will consider two metrics.
+
+- acc@1 (accuracy at 1): this is the number of bugs that you correctly rank at the top.
+- wef (wasted effort): this is essentialy the average of the absolute rank of the buggy program element, i.e., the amount of effort (= number of elements you need to investivate) needed to find the bug and do the debugging.
+
+## Deliverables and Report
+
+Your repo should include the underlying GP implementation as well as any code that uses it to evolve SBFL formulas: it should be self-contained. In addition, please include a `best.py` file that contains a single best formula you evolved, as follows:
+
+```Python
+def sbfl(ep, ef, np, nf):
+	suspiciousness = 0.0 # Your evolved SBFL formula
+	return suspiciousness
+```
+
+We will use this file against a held out set of bugs to evaluate how much your formula generalizes. Make sure you use the skeleton file, which provides the safe division. The name must be`best.py`, and the formula function must be `def sbfl(ep, ef, np, nf):` for the sake of automated grading.
+
+In addition to your implementation, please include a PDF of your report. It should contain the following:
+
+- A brief description of your approach: how you implement the GP engine, any unique features, etc
+
+- The same best formula you have evolved (use the variable names 'ep', 'ef', 'np', and 'nf' to denote the formula): try to describe why it works well :)
+
+- The evaluation results of your best formula against the bugs included in the repo: compute acc@1 against the 119 included bugs, andd also report the average wef metric per project (i.e., `Math`, `Lang`, `Time`, and `Chart`).
+
+## Important Notes
+
+- Implement your own GP: do not rely on external packages, such as [deap](https://deap.readthedocs.io/en/master/), [pyevolve](https://pyevolve.sourceforge.net), [pygad](https://pygad.readthedocs.io/en/latest/), or [TurboGP](https://github.com/l1n0b1/TurboGP). The point of this assignment is for you to experience the implementation itself, as well as the evolution of SBFL formulas.
+
+- The formula you evolve should take a single spectrum tuple, `(ep, ef, np, nf)`. **Do not do vector arithmetic using numpy arrays** or other data structures.
+
+- You are not restricted to the non-terminal node used in the reference paper: as long as you can run GP safely, use whatever you think is effective.
+
+- The ranking is at the method level. That is, for acc@1, you need to rank the method which contains the bug at the top. Given that the available spectrum data here is at the statement level, you need to aggregate the statement level scores into scores of methods. There can be different ways to aggregate the statement level scores, but a simple one is the max aggregation, i.e., the score of a method is the maximum score from the statements that belong to that method.
+
+- Some bugs exists in more than a single method. In such cases, you can use the higher ranking method for your evaluation.
+
+- GP is a way to evolve formulas: it is time consuming. Do not call your genetic programming routine from `best.py`: hardcode the formula you found using GP in `best.py` under `def sbfl(ep, ef, np, nf)`. **Ensure that the arguments are `int`, not numpy arrays.** This also means that you cannot depend on numpy.divide for safe division.
+
+- Submit your GP code as a separate Python file: do not implement everything within the Jupyter notebook.
+
+- The grading will be based on a hidden dataset. The bugs in the hidden dataset are still from the same projects, so there should not be any dramatic difference in their spectrum.

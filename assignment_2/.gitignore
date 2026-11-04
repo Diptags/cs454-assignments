@@ -1,0 +1,10 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Intermediate caches rebuilt by `python data.py`
+spectra_cache/
+spectra.pkl
+
+# macOS
+.DS_Store
