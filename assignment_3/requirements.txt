@@ -1,0 +1,4 @@
+matplotlib>=3.8
+numpy>=1.26
+perlin-noise>=1.12
+Pillow>=10.0
