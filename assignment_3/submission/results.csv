@@ -1,0 +1,21 @@
+image,norm,epsilon,seconds,orig_label,new_label,new_label_name,new_prob,fooled
+knot,linf,0.10759162902832031,150.7,616,840,"swab, swob, mop",0.3751,True
+knot,l2,1779.58203125,150.2,616,840,"swab, swob, mop",0.3608,True
+knot,l0,38,150.4,616,327,"starfish, sea star",0.4842,True
+knot,perlin,0.7511289659325618,270.8,616,320,damselfly,0.4239,True
+mink,linf,0.0514758825302124,150.1,357,337,beaver,0.5058,True
+mink,l2,518.0553588867188,150.3,357,337,beaver,0.5079,True
+mink,l0,122,150.5,357,328,sea urchin,0.4823,True
+mink,perlin,0.526879126038107,271.0,357,334,"porcupine, hedgehog",0.2948,True
+orca,linf,0.11320984363555908,150.4,148,525,"dam, dike, dyke",0.4526,True
+orca,l2,1912.511474609375,150.2,148,525,"dam, dike, dyke",0.4084,True
+orca,l0,92,150.2,148,6,stingray,0.3582,True
+orca,perlin,0.3779213148749042,271.2,148,146,"albatross, mollymawk",0.4968,True
+sock,linf,0.03460991382598877,150.8,806,443,bib,0.2770,True
+sock,l2,169.61325073242188,150.4,806,443,bib,0.2601,True
+sock,l0,13,150.4,806,327,"starfish, sea star",0.3813,True
+sock,perlin,0.11161141576019054,271.3,806,658,mitten,0.3598,True
+tank,linf,0.07440567016601562,150.5,847,408,"amphibian, amphibious vehicle",0.5044,True
+tank,l2,862.60791015625,150.6,847,408,"amphibian, amphibious vehicle",0.5055,True
+tank,l0,266,150.6,847,611,jigsaw puzzle,0.4643,True
+tank,perlin,1.0768753857761861,270.9,847,350,"ibex, Capra ibex",0.1330,True
