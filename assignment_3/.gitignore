@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# macOS
+.DS_Store
+
+# Output dari get_viz_for pas eksperimen (raw_*.png deliverable tetap di-track)
+visualization.png
+raw_visualization.png
+
+# VGG-11 weights (besar, jangan di-commit)
+*.pth
+.vgg_parts/
