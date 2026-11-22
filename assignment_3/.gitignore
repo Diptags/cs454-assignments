@@ -7,10 +7,6 @@ venv/
 # macOS
 .DS_Store
 
-# get_viz_for output from experiments (the raw_*.png deliverables are still tracked)
-visualization.png
-raw_visualization.png
-
 # VGG-11 weights (large, do not commit)
 *.pth
 .vgg_parts/
